@@ -1,0 +1,18 @@
+---
+
+# installation de python s'il n'est pas installée sur la machine cible
+- name: Check if python is installed
+  command: python
+  register: python_check
+
+- name: Execute script if python doesn't exist 
+  command: yum install python
+  when: python_check.stdout.find('command not found') != -1
+
+- name: install pip  
+  package:
+   name: python-pip
+   state: present
+  
+
+
