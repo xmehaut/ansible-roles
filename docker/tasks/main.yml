@@ -1,0 +1,16 @@
+---
+
+# installation "normale" de docker sur la machine cible
+- name: install docker.io
+  package:
+    name: docker
+    state: present
+
+- name: install docker-py
+  pip: 
+    name: docker-py
+
+
+
+
+
