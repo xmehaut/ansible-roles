@@ -1,0 +1,30 @@
+---
+
+-
+  name: 'copy R sources and unarchive in tmp'
+  unarchive:
+      src: R-{{rversion}}.tar.gz
+      dest: /tmp 
+      
+- 
+  name: 'configure R'
+  command: ./configure --prefix=/opt/R/{{rversion}} --enable-R-shlib --with-blas --with-lapack
+    chdir=/tmp/R-{{rversion}}
+    
+- 
+  name: 'compile  R'
+  make: 
+    chdir: "/tmp/R-{{rversion}}"
+  become: yes
+    
+- 
+  name: 'install  R'
+  make:  
+    target: install 
+    chdir: "/tmp/R-{{rversion}}"
+     
+-
+  name: 'suppressing  R sources'
+  file: 
+    name: /tmp/R-{{rversion}}
+    state: absent

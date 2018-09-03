@@ -1,0 +1,32 @@
+--- 
+
+  
+# phase d'installation de R
+# src : https://cran.r-project.org/doc/manuals/r-release/R-admin.html
+# src : https://support.rstudio.com/hc/en-us/articles/215488098
+# src : http://docs.rstudio.com/ide/server-pro/r-versions.html#building-additional-versions-from-source
+
+-
+  name:  install yum-utils
+  yum:
+    name: yum-utils
+    enablerepo: "extras"
+  
+-
+  name: 'exec yum-builddep R'
+  shell: yum-builddep R -y
+  
+- include_tasks: install_R.yml
+  with_items:
+    - 3.5.1
+  loop_control:
+    loop_var: rversion
+    
+
+
+
+  
+  
+    
+
+  
