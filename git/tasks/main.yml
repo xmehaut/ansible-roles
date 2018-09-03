@@ -1,0 +1,12 @@
+---
+
+#installation "normale" de git la machine cible
+- name: install git package
+  package:
+   name: git
+   state: present
+
+
+
+
+
