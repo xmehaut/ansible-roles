@@ -1,0 +1,35 @@
+---
+
+# installation de miniconda sur la cible
+
+
+- name: copy {{conda_filename}}.sh install script on the target
+  copy: 
+    src='{{conda_filename}}.sh' 
+    dest=/tmp 
+    mode=0777
+    
+- name: install bzip2 package
+  package:
+    name: bzip2
+  
+- name: Launch MiniConda install shell to install miniconda under /opt/miniconda
+  shell: './{{conda_filename}}.sh -b -p /opt/miniconda'
+  args: 
+    chdir: /tmp
+  
+#- name: delete miniconda shell script on the target
+#  file:
+#    name: /tmp/{{conda_filename}}.sh
+#    state: absent
+    
+- name: put the miniconda.sh file under /etc/profile.d to update the PATH env variable with miniconda
+  copy:
+    src: miniconda.sh
+    dest: /etc/profile.d
+    mode: u+rx,g+rx,o+rx
+    
+- name: update conda
+  command: conda update conda
+  environment:
+    PATH: /opt/miniconda/bin:{{ ansible_env.PATH }}
