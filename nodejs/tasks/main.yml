@@ -1,0 +1,20 @@
+---
+
+# installation "normale" de nodejs et npm sur la machine cible
+- name: install nodejs package
+  package:
+   name: nodejs
+   state: present
+
+- name: nmp install
+  package: 
+    name: npm
+    state: present
+
+
+
+
+
+
+
+
