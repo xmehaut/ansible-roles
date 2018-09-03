@@ -1,0 +1,35 @@
+---
+
+# phase preparatoire a adapter pour la prod 
+- name: install dos2unix with yum
+  yum: 
+    name=dos2unix
+    state=present
+
+-
+  name: 'copy shell script  to add extra centos repos'
+  copy:
+    src: install_repos.sh
+    dest: /tmp/install_repos.sh
+    mode: 0777
+       
+-
+  name: 'add extra centos repos'
+  command: dos2unix /tmp/install_repos.sh
+
+-
+  name: 'Install epel'
+  yum: 
+   name=epel-release
+   state=present
+   
+- name: uninstall dos2unix
+  yum: 
+    name=dos2unix
+    state=absent
+    
+-
+  name: 'suppressing  install script'
+  file: 
+    name: /tmp/install_repos.sh
+    state: absent
