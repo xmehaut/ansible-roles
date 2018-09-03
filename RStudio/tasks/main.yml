@@ -1,0 +1,30 @@
+---
+
+# phase d'installation de RStudio server pro
+# src : https://www.rstudio.com/products/rstudio/download-server/
+# src : https://support.rstudio.com/hc/en-us/articles/234653607-Getting-Started-with-RStudio-Server
+# src : https://support.rstudio.com/hc/en-us/articles/212364537-Using-multiple-versions-of-R-with-RStudio-Server-Pro
+
+
+- debug:
+    msg: "Début de l'installation du package {{rstudio_file}}"
+    
+- name: copy Rstudio rpm  in tmp
+  copy:
+    src: '{{rstudio_file}}.rpm'
+    dest: /tmp
+    
+- name: uninstall previous RStudio install
+  yum:
+    name: rstudio-server
+    state: absent
+    
+- name: install RStudio
+  yum:
+    name: "/tmp/{{ rstudio_file }}.rpm"
+    state: present
+    
+- name: delete RStudio rpm file
+  file:
+    name: /tmp/{{ rstudio_file }}
+    state: absent
