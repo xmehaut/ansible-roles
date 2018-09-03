@@ -1,0 +1,12 @@
+---
+# file: edge_rstudio.yml
+- hosts: edge_rstudio
+  user: centos 
+  become: true
+  roles:
+    - {role: 'common', tags: 'common'}
+    - {role: 'R', tags: 'R'}
+    - {role: 'RStudio', tags: 'RStudio'}
+    - {role: 'python', tags: 'python'}
+    - {role: 'conda', tags: 'conda'}
+
