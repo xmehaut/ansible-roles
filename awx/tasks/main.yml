@@ -1,0 +1,22 @@
+---
+
+# installation de ansible awx (version open source de Ansible Tower)
+
+- name: get the awx project from git
+  git: 
+    repo: 'https://github.com/ansible/awx.git'
+    dest: /tmp/AWX
+    
+    
+- template:
+    src: files/inventory.j2
+    dest: /tmp/AWX/installer/inventory
+    force: true
+
+
+#- name: play awx playbook
+#  command: ansible-playbook -i inventory install.yml
+#  args:
+#    chdir: /tmp/AWX/installer
+
+
