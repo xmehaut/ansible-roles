@@ -1,0 +1,12 @@
+---
+# file: vm_devops.yml
+- hosts: vm_devops
+  connection: local
+  become: yes
+  roles:
+    - {role: 'python', tags: 'python'}
+    - {role: 'docker', tags: 'docker'}
+    - {role: 'git', tags: 'git'}
+    - {role: 'nodejs', tags: 'nodejs'}
+    - {role: 'awx', tags: 'awx'}
+

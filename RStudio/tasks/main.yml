@@ -9,10 +9,18 @@
 - debug:
     msg: "Début de l'installation du package {{rstudio_file}}"
     
-- name: copy Rstudio rpm  in tmp
-  copy:
-    src: '{{rstudio_file}}.rpm'
+# old way
+#- name: 'copy Rstudio rpm  in tmp  get_url https://download2.rstudio.org/rstudio-server-rhel-pro-1.1.456-x86_64.rpm'
+#  copy:
+#    src: '{{rstudio_file}}.rpm'
+#    dest: /tmp
+
+
+- name: get and copy RStudio rpm in tmp
+  get_url: 
+    url: "https://download2.rstudio.org/{{rstudio_file}}.rpm"
     dest: /tmp
+    
     
 - name: uninstall previous RStudio install
   yum:
@@ -26,5 +34,5 @@
     
 - name: delete RStudio rpm file
   file:
-    name: /tmp/{{ rstudio_file }}
+    name: /tmp/{{ rstudio_file }}.rpm
     state: absent
